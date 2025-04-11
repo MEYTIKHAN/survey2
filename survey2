@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ارزیابی شایستگی‌های شغلی</title>
+    <style>
+        body { font-family: Arial, sans-serif; direction: rtl; text-align: right; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        select { width: 100%; padding: 5px; }
+        select:focus { background-color: #e0f7fa; }
+        .competency-column { background-color: #ffffff; }
+        .edu-column { background-color: #e6f4ea; }
+        .admin-column { background-color: #e6f0fa; }
+        .command-column { background-color: #fff7e6; }
+        .info-field { margin-bottom: 15px; }
+        .info-field label { font-weight: bold; margin-left: 10px; }
+        .info-field select { padding: 5px; width: 200px; }
+
+        /* استایل برای modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: right;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+        .close-btn {
+            color: #aaa;
+            float: left;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: #000;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Modal خوش‌آمدگویی اول -->
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="showSecondModal()">×</span>
+            <h3>عرض سلام و ارادت 🌷</h3>
+            <p>از شما که با اختصاص وقت گران‌بهای خود به این پرسشنامه، ما را در این پژوهش همراهی می‌کنید، صمیمانه سپاسگزاریم. دیدگاه‌ها و تجربیات شما، چراغ راه ما در دستیابی به نتایجی دقیق‌تر و کاربردی‌تر خواهد بود.</p>
+            <p>پیشاپیش از همکاری صمیمانه‌تان قدردانی می‌کنیم.</p>
+            <button onclick="showSecondModal()">ادامه</button>
+        </div>
+    </div>
+
+    <!-- Modal دوم -->
+    <div id="secondModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('secondModal').style.display='none'">×</span>
+            <p>در این پژوهش، هدف ما شناسایی شایستگی‌های کلیدی مؤثر بر موفقیت در سه گروه شغلی فرماندهی، آموزشی-پژوهشی و ستادی می‌باشد</p>
+            <p>در گام نخست، با بررسی دقیق منابع علمی، فهرستی از ۲۵ شایستگی اصلی گردآوری شده است.</p>
+            <p>اکنون، از شما خبره‌ی گرامی درخواست داریم تا با توجه به سوابق حرفه‌ای و تجربیات میدانی خود در این سه حوزه شغلی، به ارزیابی اهمیت و تأثیر هر یک از این شایستگی‌ها بپردازید.</p>
+            <p><strong>خواهشمندیم:</strong></p>
+            <ul>
+                <li>برای هر شایستگی، میزان اثرگذاری آن را بر موفقیت در هر یک از سه گروه شغلی (فرماندهی، آموزشی-پژوهشی، ستادی) با گزینه‌های «خیلی کم» تا «خیلی زیاد» مشخص کنید.</li>
+                <li>همچنین، درجه‌ی اهمیت کلی هر شایستگی را در بازه‌ی ۰ تا ۱ تعیین فرمایید.</li>
+            </ul>
+            <p>پاسخ‌های دقیق و صادقانه‌ی شما، نقشی بنیادین در غنای این پژوهش خواهد داشت.</p>
+            <button onclick="document.getElementById('secondModal').style.display='none'">آغاز</button>
+        </div>
+    </div>
+
+    <!-- Modal موفقیت -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('successModal').style.display='none'">×</span>
+            <h3>✅ پرسشنامه با موفقیت ثبت شد.</h3>
+            <p>از همراهی ارزشمند شما بی‌نهایت سپاسگزاریم.</p>
+            <p>دیدگاه‌ها و تجربیات شما، گامی بلند در راستای ارتقای کیفیت این پژوهش علمی خواهد‌ بود.</p>
+            <p>از اینکه با صبر و دقت ما را در این مسیر یاری کردید، صمیمانه متشکریم.</p>
+            <p>با آرزوی سلامتی و سربلندی 🌿</p>
+            <button onclick="document.getElementById('successModal').style.display='none'">باشه</button>
+        </div>
+    </div>
+
+    <h2>ارزیابی شایستگی‌های شغلی</h2>
+    <p>لطفاً شایستگی‌های زیر را بررسی کرده و برای هر یک، میزان اثرگذاری بر گروه‌های شغلی (فرماندهی، آموزشی-پژوهشی، ستادی) را با انتخاب یکی از گزینه‌های «خیلی کم» تا «خیلی زیاد» و درجه‌ی اهمیت کلی آن را در بازه‌ی ۰ تا ۱ مشخص کنید.</p>
+    <p>لطفاً پیش از شروع، اطلاعات مربوط به «سطح تحصیلات»، «سابقه کاری» و «گروه شغلی» خود را تکمیل فرمایید.</p>
+
+    <form id="competencyForm">
+        <!-- اطلاعات اولیه -->
+        <div class="info-field">
+            <label for="educationLevel">سطح تحصیلات:</label>
+            <select id="educationLevel" name="educationLevel" required>
+                <option value="">انتخاب کنید</option>
+                <option value="کارشناسی">کارشناسی</option>
+                <option value="کارشناسی ارشد">کارشناسی ارشد</option>
+                <option value="دکتری">دکتری</option>
+            </select>
+        </div>
+        <div class="info-field">
+            <label for="serviceYears">سابقه خدمت:</label>
+            <select id="serviceYears" name="serviceYears" required>
+                <option value="">انتخاب کنید</option>
+                <option value="زیر ده سال">زیر ده سال</option>
+                <option value="ده تا بیست سال">ده تا بیست سال</option>
+                <option value="بیست تا سی سال">بیست تا سی سال</option>
+            </select>
+        </div>
+        <div class="info-field">
+            <label for="jobGroup">گروه شغلی:</label>
+            <select id="jobGroup" name="jobGroup" required>
+                <option value="">انتخاب کنید</option>
+                <option value="فرماندهی">فرماندهی</option>
+                <option value="آموزشی-پژوهشی">آموزشی-پژوهشی</option>
+                <option value="ستادی">ستادی</option>
+            </select>
+        </div>
+
+        <table id="competencyTable">
+            <thead>
+                <tr>
+                    <th rowspan="2" class="competency-column">شایستگی‌ها</th>
+                    <th colspan="2" class="edu-column">مشاغل آموزشی-پژوهشی</th>
+                    <th colspan="2" class="admin-column">مشاغل ستادی</th>
+                    <th colspan="2" class="command-column">مشاغل فرماندهی</th>
+                </tr>
+                <tr>
+                    <th class="edu-column">میزان اثر</th>
+                    <th class="edu-column">درجه اهمیت</th>
+                    <th class="admin-column">میزان اثر</th>
+                    <th class="admin-column">درجه اهمیت</th>
+                    <th class="command-column">میزان اثر</th>
+                    <th class="command-column">درجه اهمیت</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+        <br>
+        <button type="submit">ارسال</button>
+    </form>
+
+    <script>
+        // تابع برای نمایش modal دوم
+        window.showSecondModal = function() {
+            document.getElementById("welcomeModal").style.display = "none";
+            document.getElementById("secondModal").style.display = "block";
+        };
+
+        const competencies = [
+            "قدرت تحلیل و درک محیط",
+            "گوش دادن فعال",
+            "مهارت نوشتاری و مکاتبه",
+            "هوش کلامی",
+            "هوش تحلیلی و محاسباتی",
+            "دانش حرفه‌ای و شغلی",
+            "تفکر انتقادی",
+            "یادگیری فعال",
+            "راهبردهای یادگیری",
+            "قدرت نظارت و کنترل",
+            "آگاهی اجتماعی",
+            "هماهنگی بین بخشی",
+            "رهبری تحول‌گرا",
+            "مهارت مذاکره و فن بیان",
+            "مهارت حل مسائل پیچیده",
+            "تحلیل عملیات",
+            "مهارت‌های رایانه‌ای و برنامه‌نویسی",
+            "پایش فرایندهای اجرایی",
+            "مهارت مسأله‌یابی",
+            "مهارت تصمیم‌گیری و قضاوت",
+            "تفکر و تحلیل سیستمی و ارزیابی سیستم‌ها",
+            "مدیریت زمان",
+            "مدیریت منابع مالی",
+            "مدیریت تجهیزات و منابع مادی",
+            "مدیریت منابع انسانی"
+        ];
+
+        const effectOptions = ["خیلی کم", "کم", "متوسط", "زیاد", "خیلی زیاد"];
+        const importanceOptions = [0, 0.25, 0.5, 0.75, 1];
+
+        const tableBody = document.getElementById("tableBody");
+        competencies.forEach((competency, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td class="competency-column">${competency}</td>
+                <td class="edu-column"><select name="effect_edu_${index}" class="effect" required></select></td>
+                <td class="edu-column"><select name="importance_edu_${index}" class="importance" required></select></td>
+                <td class="admin-column"><select name="effect_admin_${index}" class="effect" required></select></td>
+                <td class="admin-column"><select name="importance_admin_${index}" class="importance" required></select></td>
+                <td class="command-column"><select name="effect_command_${index}" class="effect" required></select></td>
+                <td class="command-column"><select name="importance_command_${index}" class="importance" required></select></td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        document.querySelectorAll(".effect").forEach(select => {
+            effectOptions.forEach(option => {
+                const opt = document.createElement("option");
+                opt.value = option;
+                opt.text = option;
+                select.appendChild(opt);
+            });
+        });
+
+        document.querySelectorAll(".importance").forEach(select => {
+            importanceOptions.forEach(option => {
+                const opt = document.createElement("option");
+                opt.value = option;
+                opt.text = option;
+                select.appendChild(opt);
+            });
+        });
+
+        // نمایش modal اول هنگام بارگذاری صفحه
+        window.onload = function() {
+            document.getElementById("welcomeModal").style.display = "block";
+        };
+
+        document.addEventListener("keydown", (e) => {
+            const activeElement = document.activeElement;
+            if (activeElement.tagName === "SELECT") {
+                const row = activeElement.parentElement.parentElement.rowIndex - 2;
+                const col = activeElement.parentElement.cellIndex;
+                const allSelects = document.querySelectorAll("select");
+
+                if (e.key >= "1" && e.key <= "5") {
+                    e.preventDefault();
+                    const index = parseInt(e.key) - 1;
+                    if (activeElement.classList.contains("effect")) {
+                        activeElement.value = effectOptions[index];
+                    } else if (activeElement.classList.contains("importance")) {
+                        activeElement.value = importanceOptions[index];
+                    }
+                }
+
+                if (e.key === "ArrowRight" || e.key === "ArrowLeft" || e.key === "ArrowUp" || e.key === "ArrowDown") {
+                    e.preventDefault();
+                    let newRow = row;
+                    let newCol = col;
+
+                    if (e.key === "ArrowRight") newCol = Math.min(col + 1, 6);
+                    if (e.key === "ArrowLeft") newCol = Math.max(col - 1, 1);
+                    if (e.key === "ArrowDown") newRow = Math.min(row + 1, 24);
+                    if (e.key === "ArrowUp") newRow = Math.max(row - 1, 0);
+
+                    const newIndex = newRow * 6 + (newCol - 1);
+                    if (newIndex >= 0 && newIndex < allSelects.length) {
+                        allSelects[newIndex].focus();
+                    }
+                }
+            }
+        });
+
+        // ارسال داده‌ها به Webhook.site
+        document.getElementById("competencyForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            data.timestamp = new Date().toISOString();
+
+            // URL از Webhook.site که دادی
+            const webhookUrl = "https://webhook.site/14e52d0e-0e84-464d-816e-ab9f350f3946";
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    console.log("داده‌ها با موفقیت ارسال شدند:", data);
+                    document.getElementById("successModal").style.display = "block";
+                    e.target.reset();
+                } else {
+                    throw new Error("خطا در ارسال داده‌ها");
+                }
+            } catch (error) {
+                console.error("خطا در ارسال:", error);
+                alert("خطایی در ارسال رخ داد: " + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
